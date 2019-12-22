@@ -57,8 +57,14 @@ func TestV1(t *testing.T) {
 	}
 	sol.Apply(c)
 	assert.Equal(t, int64(2322), c.Pos)
-	t.Log(c)
 
+	t.Run("inv", func(t *testing.T) {
+		g := sol.Inverse(mod)
+		t.Logf("\n%#v", g)
+		inv := sol.Compose(g, mod)
+		t.Logf("inv\n%#v", inv)
+		assert.Equal(t, deck.Identity, inv)
+	})
 }
 
 func TestV2(t *testing.T) {
@@ -67,13 +73,13 @@ func TestV2(t *testing.T) {
 		pos int64 = 2020
 		n   int64 = 101741582076661
 	)
-	sol := ParseInput(t, mod).Repeat(n, mod)
+	sol := ParseInput(t, mod).Repeat(n, mod).Inverse(mod)
 	c := &deck.Card{
 		Len:   mod,
 		Pos:   pos,
 		Value: pos,
 	}
 	sol.Apply(c)
-	assert.Equal(t, 2322, c.Pos)
+	assert.Equal(t, int64(49283089762689), c.Pos)
 	t.Log(c)
 }

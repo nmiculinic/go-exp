@@ -11,7 +11,7 @@ func (t Transform) Compose(other Transform, mod int64) Transform {
 	for i := 0; i < dim; i++ {
 		for j := 0; j < dim; j++ {
 			for k := 0; k < dim; k++ {
-				sol[i][j] += modmul(t[i][k], t[k][j], mod)
+				sol[i][j] += modmul(t[i][k], other[k][j], mod)
 				sol[i][j] += mod
 				sol[i][j] %= mod
 			}
@@ -32,6 +32,11 @@ var Reverse Transform = [3][3]int64{
 	{1, -1, 0},
 	{0, -1, 0},
 	{0, 1, 1},
+}
+var Identity Transform = [3][3]int64{
+	{1, 0, 0},
+	{0, 1, 0},
+	{0, 0, 1},
 }
 
 func NewCutTransform(n int64) Transform {

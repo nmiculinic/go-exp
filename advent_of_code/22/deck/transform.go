@@ -47,6 +47,9 @@ func (t Transform) Inverse(mod int64) Transform {
 		}
 	}
 
+	// dr --> destination row
+	// sr --> source row
+	// mul --> how much to multiply source row before subbing destination row
 	SubRow := func(dr, sr int, mul int64) {
 		for i := 0; i < dim; i++ {
 			t[dr][i] -= modmul(t[sr][i], mul, mod)

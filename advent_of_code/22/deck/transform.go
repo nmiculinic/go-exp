@@ -20,6 +20,19 @@ func (t Transform) Compose(other Transform, mod int64) Transform {
 	return sol
 }
 
+func (t Transform) Repeat(n, mod int64) Transform {
+	x := t
+	sol := Identity
+	for n > 0 {
+		if n&1 == 1 {
+			sol = sol.Compose(x, mod)
+		}
+		x = x.Compose(x, mod)
+		n /= 2
+	}
+	return sol
+}
+
 func (t Transform) Apply(c *Card) {
 	c.Pos = 1*t[0][1] + modmul(c.Pos, t[1][1], c.Len) // + c.Len*t[2][1]
 	c.Pos += c.Len

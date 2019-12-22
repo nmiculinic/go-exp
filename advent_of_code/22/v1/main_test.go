@@ -49,8 +49,7 @@ func TestV1(t *testing.T) {
 		pos int64 = 2019
 		n   int64 = 1
 	)
-	_ = n
-	sol := ParseInput(t, 10007)
+	sol := ParseInput(t, mod).Repeat(n, mod)
 	c := &deck.Card{
 		Len:   mod,
 		Pos:   pos,
@@ -64,12 +63,11 @@ func TestV1(t *testing.T) {
 
 func TestV2(t *testing.T) {
 	var (
-		mod int64 = 10007
-		pos int64 = 2019
-		n   int64 = 1
+		mod int64 = 119315717514047
+		pos int64 = 2020
+		n   int64 = 101741582076661
 	)
-	_ = n
-	sol := ParseInput(t, 10007)
+	sol := ParseInput(t, mod).Repeat(n, mod)
 	c := &deck.Card{
 		Len:   mod,
 		Pos:   pos,

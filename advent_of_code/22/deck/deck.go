@@ -13,26 +13,11 @@ func (c *Card) DealIntoNew() {
 }
 
 func (c *Card) Cut(n int) {
-	c.Pos += -n
-	c.Pos += c.Len
-	c.Pos %= c.Len
+	NewCutTransform(n).Apply(c)
 }
 
 func (c *Card) DealWithIncrementN(n int) {
-	c.Pos = (c.Pos * n) % c.Len
-	if gcd(n, c.Len) != 1 {
-		panic("gcd != 1")
-	}
-}
-
-func gcd(a, b int) int {
-	if b > a {
-		return gcd(b, a)
-	}
-	if b == 0 {
-		return a
-	}
-	return gcd(b, a%b)
+	NewDealWithIncrement(n).Apply(c)
 }
 
 func New(n int) Deck {

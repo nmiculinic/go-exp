@@ -11,6 +11,8 @@ func (t Transform) Compose(other Transform, mod int) Transform {
 			for k := 0; k < dim; k++ {
 				sol[i][j] += t[i][k] * t[k][j]
 				sol[i][j] %= mod
+				sol[i][j] += mod
+				sol[i][j] %= mod
 			}
 		}
 	}
@@ -29,4 +31,25 @@ var Reverse Transform = [3][3]int{
 	{1, -1, 0},
 	{0, -1, 0},
 	{0, 1, 1},
+}
+
+//c.Pos += -n
+// c.Pos += c.Len
+// c.Pos %= c.Len
+// c.Pos  =c.Pos + c.Len +
+func NewCutTransform(n int) Transform {
+	return [3][3]int{
+		{1, -n, 0},
+		{0, 1, 0},
+		{0, 1, 1},
+	}
+}
+
+func NewDealWithIncrement(n int) Transform {
+	// c.Pos = (c.Pos * n) % c.Len
+	return [3][3]int{
+		{1, 0, 0},
+		{0, n, 0},
+		{0, 0, 1},
+	}
 }
